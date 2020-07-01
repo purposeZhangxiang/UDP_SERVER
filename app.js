@@ -62,32 +62,38 @@ router.get("/reg", async (ctx, next) => {
 })
 
 router.get("/logout", async (ctx, next) => {
+    console.log('拦截logout')
     let data = resovleObj["0x27"]()
     UDP_SERVER.send(data, port, ip)
 })
 
 router.get("/bind", async (ctx, next) => {
+    console.log('拦截bind')
     let data = resovleObj["0x15"]()
     UDP_SERVER.send(data, port, ip)
 })
 
 router.get('/reBind', async (ctx, next) => {
+    console.log('拦截reBind')
     let data = resovleObj["0x15"]();
     UDP_SERVER.send(data, port, ip)
 })
 
 router.get("/outStore", async (ctx, next) => {
+    console.log('拦截outStore')
     let data = resovleObj[""]()
     UDP_SERVER.send(data, port, ip)
 })
 
 router.get("/cancelOut", async (ctx, next) => {
+    console.log('拦截cancelOut')
     let data = resovleObj[""]()
     UDP_SERVER.send(data, port, ip)
 })
 
 
 router.get("/inStore", async (ctx, next) => {
+    console.log('拦截inStore')
     let data = resovleObj[""]()
     UDP_SERVER.send(data, port, ip)
 })
