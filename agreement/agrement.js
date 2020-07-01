@@ -37,10 +37,17 @@ var xy = {
         var json = {
             "guninfo": [{
                 "gunid": "219-283918",
-                "guntype": "9mm",
+                "gunDes": "9mm",
                 "gunMac": "FF:30:D5:41:D6:5D",//枪的模组MAC
                 "username": "missLi"
-            }],
+            },
+                // {
+                //     "gunid": "218-283918",
+                //     "gunDes": "9mm",
+                //     "gunMac": "F9:6B:DC:91:25:9E",//枪的模组MAC
+                //     "username": "missLi"
+                // }
+            ],
         }
         let sendData = ab.abUtil.toHexStr('7E7E3D15', json, true)
         return sendData.data
@@ -54,6 +61,17 @@ var xy = {
             "state": 0//请忽略此state值
         }
         let sendData = ab.abUtil.toHexStr('7E7E3D18', json, true)
+        return sendData.data
+    },
+    "0x19": function () {
+        var json = {
+            "imei": "ie1029128382",// 腕表IMEI
+            "guninfo": [{
+                "gunid": "219-283918"//出库枪支
+            }],
+            "state": 1//请忽略此state值
+        }
+        let sendData = ab.abUtil.toHexStr('7E7E3D19', json, true)
         return sendData.data
     },
     "0x27": function () {
@@ -74,7 +92,23 @@ var xy = {
         }
         let sendData = ab.abUtil.toHexStr('7E7E3D55', json, true)
         return sendData.data
+    },
+    "0x56": function (params) {
+        var json = {
+            "imei": "ie1029128382"
+        }
+        let sendData = ab.abUtil.toHexStr('7E7E3D55', json, true)
+        return sendData.data
+    },
+    "0x60": function (params) {
+        var json = {
+            "imei": "ie1029128382",
+            "state": 2// 1出库2入库
+        }
+        let sendData = ab.abUtil.toHexStr('7E7E3D61', json, true)
+        return sendData.data
     }
+
 }
 
 

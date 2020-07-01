@@ -81,13 +81,13 @@ router.get('/reBind', async (ctx, next) => {
 
 router.get("/outStore", async (ctx, next) => {
     console.log('拦截outStore')
-    let data = resovleObj[""]()
+    let data = resovleObj["0x19"]()
     UDP_SERVER.send(data, port, ip)
 })
 
 router.get("/cancelOut", async (ctx, next) => {
     console.log('拦截cancelOut')
-    let data = resovleObj[""]()
+    let data = resovleObj["0x56"]()
     UDP_SERVER.send(data, port, ip)
 })
 
