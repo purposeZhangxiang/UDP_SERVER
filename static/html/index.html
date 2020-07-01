@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>UDP By Node</h1>
+
+
+    <button id="logout" onclick="sendLogout()">注销腕表</button>
+    <button id="reg" onclick="sendRegister()">发送注册命令</button>
+    <button id="bind" onclick="sendBind()">发送绑定命令</button>
+    <button id="reBind" onclick="reBind()">重新绑定命令</button>
+
+    <div style="padding:10px"></div>
+
+    <button id="outStore">出库指令</button>
+    <button id="cancelOut">取消出库</button>
+    <button id="inStore">入库指令</button>
+
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+
+        function sendRegister() {
+            $.ajax({
+                url: 'http://10.10.0.27:7777/reg',
+                method: 'get',
+            })
+        }
+
+        function sendLogout() {
+            $.ajax({
+                url: 'http://10.10.0.27:7777/logout',
+                method: 'get',
+            })
+        }
+
+        function sendBind() {
+            $.ajax({
+                url: 'http://10.10.0.27:7777/bind',
+                method: 'get',
+            })
+        }
+
+        function reBind() {
+            $ajax({
+                url: 'http://10.10.0.27:7777/reBind',
+                method: 'get'
+            })
+        }
+
+        function outStore() {
+            $.ajax({
+                url: 'http://10.10.0.27:7777/outStore',
+                method: 'get',
+            })
+        }
+
+        function cancelOut() {
+            $.ajax({
+                url: 'http://10.10.0.27:7777/cancelOut',
+                method: 'get',
+            })
+        }
+
+        function inStore() {
+            $.ajax({
+                url: 'http://10.10.0.27:7777/inStore',
+                method: 'get',
+            })
+        }
+
+    </script>
+</body>
+
+</html>
