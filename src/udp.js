@@ -1,12 +1,16 @@
 const dgram = require('dgram');
+// 自定义包
+const abUtil = require('../utils/arrayBufferUtil').abUtil;
+const agreement = require('../agreement/agrement').xy;
+
 
 class UDP {
 
     constructor(port) {
         this.UDP_SERVER = null;
         this.clientInfo = {
-            ip: '',
-            port: ''
+            ip: '10.10.0.29',
+            port: '7951'
         };
         this.port = port;
         this.init()
@@ -16,7 +20,10 @@ class UDP {
         this.UDP_SERVER = dgram.createSocket('udp4');
         this.UDP_SERVER.bind(this.port)
         this.UDP_SERVER.on('listening', () => {
-            console.log('UDP SERVER START ON 7777')
+            console.log(`UDP SERVER START ON ${this.port}`)
+        })
+        this.UDP_SERVER.on('close',()=>{
+            console.log(`UDP SERVER CLOSED`)
         })
         this.UDP_SERVER.on('message', this.onMessage.bind(this))
     }
@@ -24,17 +31,17 @@ class UDP {
     onMessage(msg, rinfo) {
         this.clientInfo.ip = rinfo.address;
         this.clientInfo.port = rinfo.port;
-        let arrBuff = buff2arrBuff(msg);
+        let pipeData = abUtil.getData(msg);
         // dispatch event
-        console.log(arrBuff)
+        dispatchEvent(pipeData)
     }
     /**
      * 
      * @param {Buffer} option 
      */
     send(option) {
-        if (options) return;
-        this.UDP_SERVER.send(option)
+        if (!option) return;
+        this.UDP_SERVER.send(option,this.clientInfo.port,this.clientInfo.ip)
     }
 
     close() {
@@ -70,4 +77,25 @@ function arrBuff2Buff(arrayBuffer){
 }
 
 
-module.exports.UDP_SERVER = new UDP(7777);
+const UDP_SERVER =  new UDP(2555);
+
+
+
+const dispatchEvent = (param) => {
+    if (!param.state) throw ('UDP数据解析失败');
+    const { cmd, data } = param;
+    console.log(`${getNowTime()} 收到协议：${cmd} 数据体：${data}`)
+    let replyData = agreement[cmd](data);
+    console.log(UDP_SERVER)
+    UDP_SERVER.send(replyData)
+}
+
+const getNowTime = () => {
+    let date = new Date();
+    let now = date.getHours().toString() + ':' + date.getMinutes() + ':' + date.getSeconds()
+    return now;
+}
+
+
+
+module.exports = UDP_SERVER;

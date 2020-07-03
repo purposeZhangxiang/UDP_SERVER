@@ -4,11 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>UDP SERVER</title>
+    <style>
+        .svg {
+            width: 100px;
+            height: 200px;
+        }
+
+        .svg_text {
+            fill: silver;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
     <h1>UDP By Node</h1>
+
+
+    <div>
+        <svg class='svg' viewBox="0 0 200 200">    
+            <circle cx="60" cy="80" r="54" fill="none" stroke="#2a2b2b" stroke-width="12" />    
+            <circle cx="60" cy="80" r="54" fill="none" stroke="#00ff3c" stroke-width="12" stroke-dasharray="339"
+                stroke-dashoffset="84.75" />
+            <text class='svg_text' x="60" y="80">75%</text>
+        </svg>
+    </div>
 
 
     <button id="logout" onclick="sendLogout()">注销腕表</button>
@@ -75,6 +99,12 @@
                 method: 'get',
             })
         }
+
+
+        $.ajax({
+            url: 'http://10.10.0.27:8080/test',
+            method: 'get',
+        })
 
     </script>
 </body>

@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "@koa/router": "^9.0.1",
     "koa": "^2.12.1",
     "koa-router": "^9.0.1",
     "koa-static": "^5.0.0",

@@ -74,6 +74,32 @@ var xy = {
         let sendData = ab.abUtil.toHexStr('7E7E3D19', json, true)
         return sendData.data
     },
+    // in
+    "0x21": function () {
+        var json = {
+            "imei": "ie1029128382",// 腕表IMEI
+            "guninfo": [{
+                "gunid": "219-283918"//出库枪支
+            }],
+            "state": 1//请忽略此state值
+        }
+        let sendData = ab.abUtil.toHexStr('7E7E3D22', json, true)
+        return sendData.data
+    },
+    "0x23": function () {
+        var json = {
+            "imei": "ie1029128382",// 腕表IMEI
+            "guninfo": [{
+                "gunid": "219-283918"//出库枪支
+            }],
+            "state": 1//请忽略此state值
+        }
+        let sendData = ab.abUtil.toHexStr('7E7E3D23', json, true)
+        return sendData.data
+    },
+    "0x24":function(param){
+        console.log(param)
+    },
     "0x27": function () {
         var json = {
             "imei": "ie1029128382",// 腕表IMEI        
