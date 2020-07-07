@@ -10,8 +10,7 @@ const dispatchEvent = require('../controller/controller');
 
 router.get("/reg", async (ctx, next) => {
     console.log('拦截reg')
-    let data = resovleObj["0x37"]()
-    UDP_SERVER.send(data)
+    dispatchEvent.register()
 })
 
 router.get("/logout", async (ctx, next) => {
@@ -21,33 +20,28 @@ router.get("/logout", async (ctx, next) => {
 
 router.get("/bind", async (ctx, next) => {
     console.log('拦截bind')
-    let data = resovleObj["0x15"]()
-    UDP_SERVER.send(data)
+    dispatchEvent.bind()
 })
 
 router.get('/reBind', async (ctx, next) => {
     console.log('拦截reBind')
-    let data = resovleObj["0x15"]();
-    UDP_SERVER.send(data)
+    dispatchEvent.rebind()
 })
 
 router.get("/outStore", async (ctx, next) => {
     console.log('拦截outStore')
-    let data = resovleObj["0x19"]()
-    UDP_SERVER.send(data)
+    dispatchEvent.outStore()
 })
 
 router.get("/cancelOut", async (ctx, next) => {
     console.log('拦截cancelOut')
-    let data = resovleObj["0x56"]()
-    UDP_SERVER.send(data)
+    dispatchEvent.cancelOut()
 })
 
 
 router.get("/inStore", async (ctx, next) => {
     console.log('拦截inStore')
-    let data = resovleObj["0x23"]()
-    UDP_SERVER.send(data)
+    dispatchEvent.inStore()
 })
 
 

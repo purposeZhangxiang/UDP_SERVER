@@ -1,3 +1,13 @@
+let ENV;
+try {
+    if(this === window){
+        console.log('broswer环境运行')
+        ENV = 'broswer';
+    }
+} catch (error) {
+    console.log('node环境运行')
+    ENV = 'node';
+}
 /**
  * @desc 对数据协议进行解析的工具类
  * @author micrometer
@@ -108,7 +118,7 @@ var abUtil = {
         var targetStr = prefix + length + charStr.substr(2, charStr.length)
 
         var resultStr = targetStr + this.genCrc16(targetStr);
-        // console.log('**********send 16进制串')
+        console.log('**********send 16进制串')
 
 
         /**
@@ -120,7 +130,11 @@ var abUtil = {
         for (var i = 0; i < buf.length; ++i) {
             buf[i] = view[i];
         }
-        // console.log(buf)
+
+        /**
+         * Browser
+         */
+
         return {
             state: true,
             data: isBuffer ? buf : resultStr
@@ -209,6 +223,7 @@ var abUtil = {
      * 将字节转换为16进制的字符串
      */
     changeByte2HexStr(arrayBuffer) {
+        // Node 和 Broswer 的差异
         var ab = new ArrayBuffer(arrayBuffer.length)
         var view = new Uint8Array(ab);
         for (var i = 0; i < arrayBuffer.length; ++i) {
@@ -484,11 +499,7 @@ CRC.padLeft = function (s, w, pc) {
 };
 
 function test() {
-    /**
-     * 测试代码中的CRC校验结果不正确
-     * 当前校验crc 被注释了
-     */
-
+    
     var target = {
         "name": "1",
         "obj": "2",

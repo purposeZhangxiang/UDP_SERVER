@@ -22,7 +22,7 @@ class UDP {
         this.UDP_SERVER.on('listening', () => {
             console.log(`UDP SERVER START ON ${this.port}`)
         })
-        this.UDP_SERVER.on('close',()=>{
+        this.UDP_SERVER.on('close', () => {
             console.log(`UDP SERVER CLOSED`)
         })
         this.UDP_SERVER.on('message', this.onMessage.bind(this))
@@ -41,7 +41,7 @@ class UDP {
      */
     send(option) {
         if (!option) return;
-        this.UDP_SERVER.send(option,this.clientInfo.port,this.clientInfo.ip)
+        this.UDP_SERVER.send(option, this.clientInfo.port, this.clientInfo.ip)
     }
 
     close() {
@@ -54,7 +54,7 @@ class UDP {
  * @param {Buffer} buffer 
  * @return {ArrayBuffer} 
  */
-function buff2arrBuff(buffer){
+const buff2arrBuff = (buffer) => {
     let arrayBuffer = new ArrayBuffer(buffer.length);
     let view = new Uint8Array(arrayBuffer)
     for (let i = 0; i < buffer.length; ++i) {
@@ -67,7 +67,7 @@ function buff2arrBuff(buffer){
  * @param {ArrayBuffer} arrayBuffer 
  * @return {Buffer} 
  */
-function arrBuff2Buff(arrayBuffer){
+const arrBuff2Buff = (arrayBuffer) => {
     var buff = new Buffer(arrayBuffer.byteLength);
     var view = new Uint8Array(arrayBuffer);
     for (var i = 0; i < buff.length; ++i) {
@@ -77,7 +77,7 @@ function arrBuff2Buff(arrayBuffer){
 }
 
 
-const UDP_SERVER =  new UDP(2555);
+const UDP_SERVER = new UDP(2555);
 
 
 
