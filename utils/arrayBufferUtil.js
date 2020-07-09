@@ -1,6 +1,6 @@
 let ENV;
 try {
-    if(this === window){
+    if (this === window) {
         console.log('broswer环境运行')
         ENV = 'broswer';
     }
@@ -32,6 +32,8 @@ var abUtil = {
         //如果先获取候最后两位进行CRC标记校验,可能存在数据风险
         if (typeof targetStr != "string") {
             targetStr = this.changeByte2HexStr(targetStr);
+            console.log(targetStr)
+           
         }
         var readByte = abUtil.readBytes(targetStr);
         var start = readByte(2);
@@ -105,8 +107,7 @@ var abUtil = {
         // console.log(jsonStr)
         //包含 0x开头字符串
         var length = this.to16Char(jsonStr.length);
-        var charStr = this.strToHexCharCode(jsonStr).toUpperCase();
-        // console.log(charStr)
+        var charStr = this.string2hex2(jsonStr).toUpperCase();
         if (length.length > dataLength) {
             return {
                 state: false,
@@ -115,10 +116,13 @@ var abUtil = {
         }
         //将长度填充为4个字节
         length = CRC.padLeft(length, dataLength);
-        var targetStr = prefix + length + charStr.substr(2, charStr.length)
+        // var targetStr = prefix + length + charStr.substr(2, charStr.length)
+        var targetStr = prefix + length + charStr
 
         var resultStr = targetStr + this.genCrc16(targetStr);
         console.log('**********send 16进制串')
+        console.log(charStr)
+        console.log(resultStr)
 
 
         /**
@@ -178,7 +182,7 @@ var abUtil = {
      * @param isBuffer 是否需要转换为buffer
      * @param dataLength 数据长度存储的字符串长度
      */
-    writeBooth(prefix, targetHex, dataLength, isBuffer=false) {
+    writeBooth(prefix, targetHex, dataLength, isBuffer = false) {
         dataLength = dataLength || 2;
         //包含 0x开头字符串
         //传递的数据直接是二进制数据,求其字节长度的时候,需要将其hex/2
@@ -224,12 +228,17 @@ var abUtil = {
      */
     changeByte2HexStr(arrayBuffer) {
         // Node 和 Broswer 的差异
-        var ab = new ArrayBuffer(arrayBuffer.length)
-        var view = new Uint8Array(ab);
-        for (var i = 0; i < arrayBuffer.length; ++i) {
-            view[i] = arrayBuffer[i];
-        }
-        var dataView = new DataView(ab);
+        // console.log(arrayBuffer.byteLength)
+
+        // var ab = new ArrayBuffer(arrayBuffer.length)
+        // var view = new Uint8Array(ab);
+        // for (var i = 0; i < arrayBuffer.length; ++i) {
+        //     view[i] = arrayBuffer[i];
+        // }
+        // var dataView = new DataView(ab);
+        // var hexStr = "";
+        // var index = 0
+        var dataView = new DataView(arrayBuffer);
         var hexStr = "";
         var index = 0
         while (index < dataView.byteLength) {
@@ -365,14 +374,18 @@ var abUtil = {
             for (var i = 0; i < nInputLength; i = i + 2) {
                 var str = strInput.substr(i, 2); //16进制；
                 //StrHex = StrHex + .toString(16);
-
                 var n = parseInt(str, 16); //10进制；
                 StrHex = StrHex + String.fromCharCode(n);
             }
-            // console.log(decodeURIComponent(escape(StrHex)))
             var jsonStr = decodeURIComponent(escape(StrHex))
             return jsonStr;
         }
+    },
+
+    string2hex2: function (str) {
+        let arr = Array.from(str)
+        return arr.map(c =>
+            c.charCodeAt(0) < 128 ? c.charCodeAt(0).toString(16).length == 1 ? "0" + c.charCodeAt(0).toString(16) : c.charCodeAt(0).toString(16) : encodeURIComponent(c).replace(/\%/g, '').toLowerCase()).join('');
     }
 
 
@@ -499,15 +512,14 @@ CRC.padLeft = function (s, w, pc) {
 };
 
 function test() {
-    
+
     var target = {
-        "name": "1",
+        "name": "张翔",
         "obj": "2",
     }
     console.log("------*使用原数据发送的数据*-----");
     var sendByte = abUtil.toHexStr("7E7E3D11", target, true);
     console.log(sendByte);
-
     console.log("------*开始数据解析*-----");
     var data = abUtil.getData(sendByte.data.buffer);
     console.log("------*接收的数据*-----");
@@ -515,10 +527,6 @@ function test() {
 
 
 }
-// test();
-//7E7E3D11000000167B226E616D65223A2231222C226F626A223A2232227D6CB9
-//7E7E3D11000167B226E616D65223A2231222C226F626A223A2232227D6CB9
-
-
+test();
 
 module.exports.abUtil = abUtil;

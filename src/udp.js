@@ -86,7 +86,6 @@ const dispatchEvent = (param) => {
     const { cmd, data } = param;
     console.log(`${getNowTime()} 收到协议：${cmd} 数据体：${data}`)
     let replyData = agreement[cmd](data);
-    console.log(UDP_SERVER)
     UDP_SERVER.send(replyData)
 }
 
