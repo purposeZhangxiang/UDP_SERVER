@@ -31,6 +31,7 @@ class UDP {
     onMessage(msg, rinfo) {
         this.clientInfo.ip = rinfo.address;
         this.clientInfo.port = rinfo.port;
+        console.log(msg)
         let pipeData = abUtil.getData(msg);
         // dispatch event
         dispatchEvent(pipeData)

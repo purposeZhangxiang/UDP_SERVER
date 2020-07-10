@@ -32,14 +32,14 @@ var abUtil = {
         //如果先获取候最后两位进行CRC标记校验,可能存在数据风险
         if (typeof targetStr != "string") {
             targetStr = this.changeByte2HexStr(targetStr);
-            console.log(targetStr)
-           
         }
         var readByte = abUtil.readBytes(targetStr);
         var start = readByte(2);
         var xulie = readByte(1);
         var mingling = readByte(1);
         var dataLength = abUtil.toInt(readByte(4));
+        console.log(start,xulie,mingling,dataLength)
+
         var data = readByte(dataLength);
         var end = readByte(2);
         function checkCrc16() {
@@ -106,8 +106,10 @@ var abUtil = {
         var jsonStr = JSON.stringify(targetJson);
         // console.log(jsonStr)
         //包含 0x开头字符串
-        var length = this.to16Char(jsonStr.length);
+        // var length = this.to16Char(jsonStr.length);
+        // console.log(length)
         var charStr = this.string2hex2(jsonStr).toUpperCase();
+        var length = (charStr.length/2).toString(16)
         if (length.length > dataLength) {
             return {
                 state: false,
@@ -116,14 +118,12 @@ var abUtil = {
         }
         //将长度填充为4个字节
         length = CRC.padLeft(length, dataLength);
-        // var targetStr = prefix + length + charStr.substr(2, charStr.length)
+        // var targetStr = prefix + length + charStr.substr(2, charStr.length) // orginal method
         var targetStr = prefix + length + charStr
 
         var resultStr = targetStr + this.genCrc16(targetStr);
-        console.log('**********send 16进制串')
-        console.log(charStr)
-        console.log(resultStr)
-
+        console.log('**********send 16进制串: ' +resultStr)
+        // console.log(resultStr)
 
         /**
          * Node JS 只认buffer 需要arrayBugger 2 buffer
@@ -134,6 +134,7 @@ var abUtil = {
         for (var i = 0; i < buf.length; ++i) {
             buf[i] = view[i];
         }
+        console.log(buf)
 
         /**
          * Browser
@@ -230,17 +231,17 @@ var abUtil = {
         // Node 和 Broswer 的差异
         // console.log(arrayBuffer.byteLength)
 
-        // var ab = new ArrayBuffer(arrayBuffer.length)
-        // var view = new Uint8Array(ab);
-        // for (var i = 0; i < arrayBuffer.length; ++i) {
-        //     view[i] = arrayBuffer[i];
-        // }
-        // var dataView = new DataView(ab);
-        // var hexStr = "";
-        // var index = 0
-        var dataView = new DataView(arrayBuffer);
+        var ab = new ArrayBuffer(arrayBuffer.length)
+        var view = new Uint8Array(ab);
+        for (var i = 0; i < arrayBuffer.length; ++i) {
+            view[i] = arrayBuffer[i];
+        }
+        var dataView = new DataView(ab);
         var hexStr = "";
         var index = 0
+        // var dataView = new DataView(arrayBuffer);
+        // var hexStr = "";
+        // var index = 0
         while (index < dataView.byteLength) {
             // 序列号
             // console.log(index, dataView.getUint8(index).toString(16))
@@ -515,18 +516,18 @@ function test() {
 
     var target = {
         "name": "张翔",
-        "obj": "2",
+        "obj": "里",
     }
     console.log("------*使用原数据发送的数据*-----");
     var sendByte = abUtil.toHexStr("7E7E3D11", target, true);
     console.log(sendByte);
     console.log("------*开始数据解析*-----");
     var data = abUtil.getData(sendByte.data.buffer);
-    console.log("------*接收的数据*-----");
+    console.log("------*解析的数据*-----");
     console.log(data);
 
 
 }
-test();
+// test();
 
 module.exports.abUtil = abUtil;

@@ -6,6 +6,7 @@ const ctrl = {
 
     register() {
         let data = resovleObj["0x37"]()
+        console.log("register")
         UDP_SERVER.send(data)
     },
 

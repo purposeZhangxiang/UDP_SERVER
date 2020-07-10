@@ -50,9 +50,11 @@
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
 
+
+        const baseUrl = 'http://10.10.0.38:7777'
         function sendRegister() {
             $.ajax({
-                url: 'http://10.10.0.27:7777/reg',
+                url: `${baseUrl}/reg`,
                 method: 'get',
             })
         }
@@ -60,51 +62,45 @@
         function sendLogout() {
             alert('注销腕表指令已发送')
             $.ajax({
-                url: 'http://10.10.0.27:7777/logout',
+                url: `${baseUrl}/logout`,
                 method: 'get',
             })
         }
 
         function sendBind() {
             $.ajax({
-                url: 'http://10.10.0.27:7777/bind',
+                url: `${baseUrl}/bind`,
                 method: 'get',
             })
         }
 
         function reBind() {
             $.ajax({
-                url: 'http://10.10.0.27:7777/reBind',
+                url: `${baseUrl}/reBind`,
                 method: 'get'
             })
         }
 
         function outStore() {
             $.ajax({
-                url: 'http://10.10.0.27:7777/outStore',
+                url: `${baseUrl}/outStore`,
                 method: 'get',
             })
         }
 
         function cancelOut() {
             $.ajax({
-                url: 'http://10.10.0.27:7777/cancelOut',
+                url: `${baseUrl}/cancelOut`,
                 method: 'get',
             })
         }
 
         function inStore() {
             $.ajax({
-                url: 'http://10.10.0.27:7777/inStore',
+                url: `${baseUrl}/inStore`,
                 method: 'get',
             })
         }
-
-
-        $.ajax({
-            url: 'http://10.10.0.27:8080/test',
-            method: 'get',
-        })
 
     </script>
 </body>
