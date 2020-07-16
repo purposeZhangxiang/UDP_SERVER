@@ -37,9 +37,10 @@ var xy = {
         var json = {
             "guninfo": [{
                 "gunid": "219-283918",
-                "gunDes": "9mm枪支",
-                "gunMac": "FF:30:D5:41:D6:5D",//枪的模组MAC
-                "username": "missLi",
+                "gunDes": "秒速文字",
+                "gunMac": "F5:23:AD:67:7F:BC",//枪的模组MAC
+                "username": "吴大维",
+                "gunSort":'手枪'
             },
                 // {
                 //     "gunid": "218-283918",

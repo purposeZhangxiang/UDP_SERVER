@@ -516,13 +516,13 @@ function test() {
 
     var target = {
         "name": "张翔",
-        "obj": "里",
+        "obj": "2",
     }
     console.log("------*使用原数据发送的数据*-----");
     var sendByte = abUtil.toHexStr("7E7E3D11", target, true);
     console.log(sendByte);
     console.log("------*开始数据解析*-----");
-    var data = abUtil.getData(sendByte.data.buffer);
+    var data = abUtil.getData(sendByte.data);
     console.log("------*解析的数据*-----");
     console.log(data);
 
